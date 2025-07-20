@@ -1,0 +1,192 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--glass-gradient);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-md) 0;
+  transition: var(--transition-normal);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.header-subtitle {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-top: var(--space-xs);
+  font-family: var(--font-primary);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-gradient);
+  transition: var(--transition-normal);
+  z-index: -1;
+}
+
+.nav-link:hover::before {
+  left: 0;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--primary);
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  transition: var(--transition-fast);
+}
+
+.nav-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+/* Special styling for different link types */
+.admin-link {
+  background: rgba(240, 147, 251, 0.1);
+  border-color: rgba(240, 147, 251, 0.3);
+}
+
+.admin-link:hover {
+  border-color: var(--secondary);
+  box-shadow: 0 0 20px rgba(240, 147, 251, 0.3);
+}
+
+.profile-link {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: rgba(79, 172, 254, 0.3);
+}
+
+.profile-link:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+}
+
+.login-link {
+  background: var(--primary-gradient);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+.login-link:hover {
+  background: var(--secondary-gradient);
+  border-color: var(--secondary);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Active state */
+.nav-link.active {
+  background: var(--primary-gradient);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: 0 var(--space-md);
+  }
+  
+  .header-title {
+    font-size: 1.5rem;
+  }
+  
+  .header-nav {
+    gap: var(--space-sm);
+    justify-content: center;
+  }
+  
+  .nav-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.8rem;
+  }
+  
+  .nav-text {
+    display: none;
+  }
+  
+  .nav-icon {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-link {
+    min-width: 60px;
+    justify-content: center;
+  }
+}
+
+/* Animation for header on scroll */
+.header.scrolled {
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(30px);
+  box-shadow: var(--shadow-lg);
+} 

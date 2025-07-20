@@ -1,9 +1,8 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { useRef } from "react";
-import { useContext } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { AppContext } from "../App";
 import axios from "axios";
+import "./Users.css";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const { user } = useContext(AppContext);
@@ -45,7 +44,7 @@ export default function Users() {
   const handleDelete = async (id) => {
     try {
       const url = `${API_URL}/api/users/${id}`;
-      const result = await axios.delete(url, {
+      await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -71,12 +70,12 @@ export default function Users() {
     }
     try {
       const url = `${API_URL}/api/users`;
-      const result = await axios.post(url, form, {
+      await axios.post(url, form, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setError("User added succesfully");
+      setError("User added successfully");
       fetchUsers();
       resetForm();
     } catch (err) {
@@ -106,7 +105,7 @@ export default function Users() {
     }
     try {
       const url = `${API_URL}/api/users/${editId}`;
-      const result = await axios.patch(url, form, {
+      await axios.patch(url, form, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -137,15 +136,19 @@ export default function Users() {
     });
   };
   return (
-    <div>
-      <h2>User Management</h2>
-      {error}
-      <div>
-        <form ref={frmRef}>
+    <div className="admin-users-page main-content">
+      <div className="admin-users-header">
+        <h1 className="admin-users-title gradient-text">CoffeeZoo Users</h1>
+        <p className="admin-users-subtitle">Manage all users of CoffeeZoo</p>
+      </div>
+      {error && <div className="error-message">{error}</div>}
+      <div className="admin-users-form glass">
+        <form ref={frmRef} className="users-form-row" autoComplete="off">
           <input
             name="firstName"
             value={form.firstName}
             type="text"
+            className="users-input"
             placeholder="First Name"
             onChange={handleChange}
             required
@@ -154,6 +157,7 @@ export default function Users() {
             name="lastName"
             value={form.lastName}
             type="text"
+            className="users-input"
             placeholder="Last Name"
             onChange={handleChange}
             required
@@ -162,6 +166,7 @@ export default function Users() {
             name="email"
             value={form.email}
             type="text"
+            className="users-input"
             placeholder="Email Address"
             onChange={handleChange}
             required
@@ -170,6 +175,7 @@ export default function Users() {
             name="password"
             value={form.password}
             type="password"
+            className="users-input"
             placeholder="New Password"
             onChange={handleChange}
             required
@@ -177,6 +183,7 @@ export default function Users() {
           <select
             name="role"
             value={form.role}
+            className="users-input"
             required
             onChange={handleChange}
           >
@@ -184,65 +191,55 @@ export default function Users() {
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
-          {/* <input
-            name="role"
-            value={form.role}
-            type="text"
-            onChange={handleChange}
-            placeholder="Role"
-          /> */}
-
           {editId ? (
             <>
-              <button onClick={handleUpdate}>Update</button>
-              <button onClick={handleCancel}>Cancel</button>
+              <button className="users-btn users-update-btn" onClick={handleUpdate}>Update</button>
+              <button className="users-btn users-cancel-btn" onClick={handleCancel}>Cancel</button>
             </>
           ) : (
-            <button onClick={handleAdd}>Add</button>
+            <button className="users-btn users-add-btn" onClick={handleAdd}>Add</button>
           )}
         </form>
       </div>
-      <div>
-        <input type="text" onChange={(e) => setSearchVal(e.target.value)} />
-        <button onClick={() => fetchUsers()}>Search</button>
+      <div className="admin-users-search">
+        <input type="text" className="users-input" placeholder="Search users..." onChange={(e) => setSearchVal(e.target.value)} />
+        <button className="users-btn users-search-btn" onClick={() => fetchUsers()}>Search</button>
       </div>
-      <div>
-        <table border="1">
+      <div className="admin-users-table glass">
+        <table className="users-table">
           <thead>
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email Address</th>
               <th>Role</th>
+              <th>Action</th>
             </tr>
           </thead>
-          {users.map((value) => (
-            <tbody key={value._id}>
-              <tr>
+          <tbody>
+            {users.map((value) => (
+              <tr key={value._id}>
                 <td>{value.firstName}</td>
                 <td>{value.lastName}</td>
                 <td>{value.email}</td>
                 <td>{value.role}</td>
                 <td>
-                  <button onClick={() => handleEdit(value)}>Edit</button>
-                  <button onClick={() => handleDelete(value._id)}>
+                  <button className="users-btn users-edit-btn" onClick={() => handleEdit(value)}>Edit</button>
+                  <button className="users-btn users-delete-btn" onClick={() => handleDelete(value._id)}>
                     Delete
                   </button>
                 </td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
-      <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+      <div className="admin-users-pagination">
+        <button className="users-btn users-pagination-btn" disabled={page === 1} onClick={() => setPage(page - 1)}>
           Previous
         </button>
-        Page {page} of {totalPages}
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-        >
+        <span className="users-pagination-info">Page {page} of {totalPages}</span>
+        <button className="users-btn users-pagination-btn" disabled={page === totalPages} onClick={() => setPage(page + 1)}>
           Next
         </button>
       </div>

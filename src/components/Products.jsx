@@ -1,7 +1,6 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import "./Products.css";
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState();
@@ -37,9 +36,9 @@ export default function Products() {
   const handleDelete = async (id) => {
     try {
       const url = `${API_URL}/api/products/${id}`;
-      const result = await axios.delete(url);
-      setError("User Deleted Successfully");
-      fetchUsers();
+      await axios.delete(url);
+      setError("Product Deleted Successfully");
+      fetchProducts();
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
@@ -59,8 +58,8 @@ export default function Products() {
     }
     try {
       const url = `${API_URL}/api/products`;
-      const result = await axios.post(url, form);
-      setError("User added succesfully");
+      await axios.post(url, form);
+      setError("Product added successfully");
       fetchProducts();
       resetForm();
     } catch (err) {
@@ -89,11 +88,11 @@ export default function Products() {
     }
     try {
       const url = `${API_URL}/api/products/${editId}`;
-      const result = await axios.patch(url, form);
+      await axios.patch(url, form);
       fetchProducts();
       setEditId();
       resetForm();
-      setError("User information updated successfully");
+      setError("Product information updated successfully");
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
@@ -115,15 +114,19 @@ export default function Products() {
     });
   };
   return (
-    <div>
-      <h2>Product Management</h2>
-      {error}
-      <div>
-        <form ref={frmRef}>
+    <div className="admin-products-page main-content">
+      <div className="admin-products-header">
+        <h1 className="admin-products-title gradient-text">CoffeeZoo Products</h1>
+        <p className="admin-products-subtitle">Manage all products in CoffeeZoo</p>
+      </div>
+      {error && <div className="error-message">{error}</div>}
+      <div className="admin-products-form glass">
+        <form ref={frmRef} className="products-form-row" autoComplete="off">
           <input
             name="productName"
             value={form.productName}
             type="text"
+            className="products-input"
             placeholder="Product Name"
             onChange={handleChange}
             required
@@ -132,6 +135,7 @@ export default function Products() {
             name="description"
             value={form.description}
             type="text"
+            className="products-input"
             placeholder="Description"
             onChange={handleChange}
             required
@@ -140,6 +144,7 @@ export default function Products() {
             name="price"
             value={form.price}
             type="text"
+            className="products-input"
             placeholder="Price"
             onChange={handleChange}
             required
@@ -148,27 +153,27 @@ export default function Products() {
             name="imgUrl"
             value={form.imgUrl}
             type="text"
+            className="products-input"
             placeholder="Image Url"
             onChange={handleChange}
             required
           />
-
           {editId ? (
             <>
-              <button onClick={handleUpdate}>Update</button>
-              <button onClick={handleCancel}>Cancel</button>
+              <button className="products-btn products-update-btn" onClick={handleUpdate}>Update</button>
+              <button className="products-btn products-cancel-btn" onClick={handleCancel}>Cancel</button>
             </>
           ) : (
-            <button onClick={handleAdd}>Add</button>
+            <button className="products-btn products-add-btn" onClick={handleAdd}>Add</button>
           )}
         </form>
       </div>
-      <div>
-        <input type="text" onChange={(e) => setSearchVal(e.target.value)} />
-        <button onClick={fetchProducts}>Search</button>
+      <div className="admin-products-search">
+        <input type="text" className="products-input" placeholder="Search products..." onChange={(e) => setSearchVal(e.target.value)} />
+        <button className="products-btn products-search-btn" onClick={fetchProducts}>Search</button>
       </div>
-      <div>
-        <table border="1">
+      <div className="admin-products-table glass">
+        <table className="products-table">
           <thead>
             <tr>
               <th>Product Name</th>
@@ -178,33 +183,30 @@ export default function Products() {
               <th>Action</th>
             </tr>
           </thead>
-          {products.map((value) => (
-            <tbody key={value._id}>
-              <tr>
+          <tbody>
+            {products.map((value) => (
+              <tr key={value._id}>
                 <td>{value.productName}</td>
                 <td>{value.description}</td>
                 <td>{value.price}</td>
                 <td>{value.imgUrl}</td>
                 <td>
-                  <button onClick={() => handleEdit(value)}>Edit</button>
-                  <button onClick={() => handleDelete(value._id)}>
+                  <button className="products-btn products-edit-btn" onClick={() => handleEdit(value)}>Edit</button>
+                  <button className="products-btn products-delete-btn" onClick={() => handleDelete(value._id)}>
                     Delete
                   </button>
                 </td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
-      <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+      <div className="admin-products-pagination">
+        <button className="products-btn products-pagination-btn" disabled={page === 1} onClick={() => setPage(page - 1)}>
           Previous
         </button>
-        Page {page} of {totalPages}
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-        >
+        <span className="products-pagination-info">Page {page} of {totalPages}</span>
+        <button className="products-btn products-pagination-btn" disabled={page === totalPages} onClick={() => setPage(page + 1)}>
           Next
         </button>
       </div>

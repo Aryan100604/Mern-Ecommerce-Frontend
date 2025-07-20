@@ -1,0 +1,200 @@
+.admin-products-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.admin-products-header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+  animation: fadeIn 0.8s ease-out;
+}
+
+.admin-products-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+}
+
+.admin-products-subtitle {
+  color: var(--gray-400);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-xl);
+}
+
+.admin-products-form {
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  background: var(--glass-gradient);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.products-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.products-input {
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--primary);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  min-width: 120px;
+}
+
+.products-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.08);
+}
+
+.products-btn {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--primary-gradient);
+  color: var(--white);
+  transition: var(--transition-fast);
+  margin-top: var(--space-xs);
+}
+
+.products-btn:hover {
+  background: var(--secondary-gradient);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: var(--shadow-glow);
+}
+
+.products-add-btn {
+  background: linear-gradient(135deg, #00d4aa 0%, #4facfe 100%);
+}
+
+.products-update-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.products-cancel-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+}
+
+.products-edit-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.products-delete-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+}
+
+.products-search-btn {
+  background: var(--primary-gradient);
+}
+
+.admin-products-search {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.admin-products-table {
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  background: var(--glass-gradient);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.products-table th, .products-table td {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--gray-800);
+  text-align: left;
+}
+
+.products-table th {
+  background: var(--dark-gradient);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.products-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-products-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.products-pagination-btn {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--primary-gradient);
+  color: var(--white);
+  transition: var(--transition-fast);
+}
+
+.products-pagination-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.products-pagination-btn:hover:not(:disabled) {
+  background: var(--secondary-gradient);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.products-pagination-info {
+  color: var(--gray-400);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .products-form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+  .admin-products-table {
+    padding: var(--space-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-products-header {
+    margin-bottom: var(--space-xl);
+  }
+  .admin-products-form, .admin-products-table {
+    padding: var(--space-md);
+  }
+  .products-table th, .products-table td {
+    padding: var(--space-sm);
+    font-size: 0.95rem;
+  }
+} 
